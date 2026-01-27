@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { extractKanji } from "@/lib/kanji";
-import { writeFile, mkdir } from "fs/promises";
+import { writeFile, mkdir, access } from "fs/promises";
 import { join } from "path";
 import convert from "heic-convert";
 const DEMO_USER = "demo";
@@ -51,13 +51,12 @@ export async function POST(req: NextRequest) {
     const buffer = Buffer.from(bytes);
     const filename = `${Date.now()}-${file.name}`;
 
-    // Save image locally (dev only — skipped on read-only filesystems like Vercel)
-    try {
+    // Save image locally (dev only — skip on Vercel/read-only filesystems)
+    const isWritable = await access(join(process.cwd(), "public"), 0o2).then(() => true, () => false);
+    if (isWritable) {
       const uploadsDir = join(process.cwd(), "public", "uploads");
       await mkdir(uploadsDir, { recursive: true });
       await writeFile(join(uploadsDir, filename), buffer);
-    } catch {
-      // Read-only filesystem (Vercel) — skip saving, image not needed on disk
     }
 
     // Convert to JPEG base64 for OCR — vision models need JPEG/PNG
