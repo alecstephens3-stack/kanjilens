@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { extractKanji } from "@/lib/kanji";
-import { writeFile } from "fs/promises";
+import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import convert from "heic-convert";
 const DEMO_USER = "demo";
@@ -43,12 +43,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "No image provided" }, { status: 400 });
     }
 
-    // Save image locally
+    // Read image into buffer
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const filename = `${Date.now()}-${file.name}`;
-    const filepath = join(process.cwd(), "public", "uploads", filename);
-    await writeFile(filepath, buffer);
+
+    // Save image locally (dev only — skipped on read-only filesystems like Vercel)
+    try {
+      const uploadsDir = join(process.cwd(), "public", "uploads");
+      await mkdir(uploadsDir, { recursive: true });
+      await writeFile(join(uploadsDir, filename), buffer);
+    } catch {
+      // Read-only filesystem (Vercel) — skip saving, image not needed on disk
+    }
 
     // Convert to JPEG base64 for OCR — vision models need JPEG/PNG
     let imageBase64: string;
