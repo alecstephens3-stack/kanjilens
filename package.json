@@ -1,0 +1,31 @@
+{
+  "name": "kanjilens",
+  "version": "1.0.0",
+  "description": "Learn kanji from photos — OCR-powered kanji extraction with AI study packs and SRS flashcard review",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "npx tsx prisma/seed.ts",
+    "db:reset": "prisma migrate reset"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.2",
+    "heic-convert": "^2.1.0",
+    "next": "^16.1.4",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
+    "@types/node": "^25.0.10",
+    "@types/react": "^19.2.9",
+    "postcss": "^8.5.6",
+    "prisma": "^6.19.2",
+    "tailwindcss": "^4.1.18",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

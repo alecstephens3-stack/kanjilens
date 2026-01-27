@@ -1,0 +1,379 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-sans), "Noto Sans JP", sans-serif;
+  --font-serif: var(--font-serif), "Noto Serif JP", serif;
+
+  /* Ukiyo-e Modern palette - registered for Tailwind opacity modifiers */
+  --color-paper: #F5F0E3;
+  --color-paper-light: #FAF7EF;
+  --color-parchment: #E8DFD0;
+  --color-indigo-deep: #1B2838;
+  --color-indigo-mid: #2A3F5A;
+  --color-crimson: #B8302C;
+  --color-crimson-dark: #8B2320;
+  --color-gold: #C9A84C;
+  --color-gold-light: #D4BA6A;
+  --color-forest: #2D5F3E;
+  --color-forest-light: #3A7A50;
+  --color-ink: #1A1A1A;
+  --color-ink-medium: #4A4A4A;
+  --color-ink-light: #8A8A7A;
+  --color-ink-faint: #B0A898;
+}
+
+:root {
+  /* Semantic aliases */
+  --bg-paper: #F5F0E3;
+  --bg-parchment: #E8DFD0;
+  --accent-crimson: #B8302C;
+  --accent-gold: #C9A84C;
+  --accent-forest: #2D5F3E;
+  --deep-indigo: #1B2838;
+}
+
+body {
+  background-color: var(--bg-paper);
+  color: var(--color-ink);
+}
+
+/* ═══════════════════════════════════════════════
+   SHADOW SYSTEM — Multi-layer paper-cut depth
+   ═══════════════════════════════════════════════ */
+
+.shadow-paper {
+  box-shadow:
+    0 1px 2px rgba(26, 26, 26, 0.06),
+    0 4px 12px rgba(26, 26, 26, 0.08),
+    0 8px 24px rgba(26, 26, 26, 0.04);
+}
+
+.shadow-paper-hover {
+  box-shadow:
+    0 2px 4px rgba(26, 26, 26, 0.08),
+    0 8px 24px rgba(26, 26, 26, 0.12),
+    0 16px 48px rgba(26, 26, 26, 0.06);
+}
+
+.shadow-ukiyo {
+  box-shadow:
+    0 2px 8px rgba(27, 40, 56, 0.15),
+    0 8px 32px rgba(27, 40, 56, 0.1),
+    0 0 0 1px rgba(27, 40, 56, 0.05);
+}
+
+.shadow-gold {
+  box-shadow:
+    0 2px 8px rgba(201, 168, 76, 0.2),
+    0 4px 16px rgba(201, 168, 76, 0.15);
+}
+
+/* ═══════════════════════════════════════════════
+   DECORATIVE BORDERS — Ukiyo-e print frames
+   ═══════════════════════════════════════════════ */
+
+.border-ukiyo {
+  border: 2px solid var(--deep-indigo);
+  box-shadow: inset 0 0 0 2px var(--bg-paper), inset 0 0 0 3px var(--deep-indigo);
+}
+
+.border-gold-frame {
+  border: 1px solid var(--accent-gold);
+  box-shadow: inset 0 0 0 1px var(--bg-paper), inset 0 0 0 2px var(--accent-gold);
+}
+
+/* ═══════════════════════════════════════════════
+   JAPANESE PATTERNS — CSS-only decorative bgs
+   ═══════════════════════════════════════════════ */
+
+/* Seigaiha (wave) pattern */
+.pattern-seigaiha {
+  position: relative;
+}
+.pattern-seigaiha::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 50% 100%, transparent 50%, var(--deep-indigo) 50%, var(--deep-indigo) 55%, transparent 55%),
+    radial-gradient(circle at 0% 100%, transparent 50%, var(--deep-indigo) 50%, var(--deep-indigo) 55%, transparent 55%),
+    radial-gradient(circle at 100% 100%, transparent 50%, var(--deep-indigo) 50%, var(--deep-indigo) 55%, transparent 55%);
+  background-size: 40px 20px;
+}
+
+/* Asanoha (hemp leaf star) pattern */
+.pattern-asanoha {
+  position: relative;
+}
+.pattern-asanoha::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  pointer-events: none;
+  background-image:
+    linear-gradient(30deg, var(--deep-indigo) 12%, transparent 12.5%, transparent 87.5%, var(--deep-indigo) 88%),
+    linear-gradient(150deg, var(--deep-indigo) 12%, transparent 12.5%, transparent 87.5%, var(--deep-indigo) 88%),
+    linear-gradient(30deg, var(--deep-indigo) 12%, transparent 12.5%, transparent 87.5%, var(--deep-indigo) 88%),
+    linear-gradient(150deg, var(--deep-indigo) 12%, transparent 12.5%, transparent 87.5%, var(--deep-indigo) 88%),
+    linear-gradient(60deg, rgba(27,40,56,0.5) 25%, transparent 25.5%, transparent 75%, rgba(27,40,56,0.5) 75%),
+    linear-gradient(60deg, rgba(27,40,56,0.5) 25%, transparent 25.5%, transparent 75%, rgba(27,40,56,0.5) 75%);
+  background-size: 20px 35px;
+  background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
+}
+
+/* Diamond lattice (shippo-like) pattern */
+.pattern-diamond {
+  position: relative;
+}
+.pattern-diamond::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image:
+    linear-gradient(45deg, var(--deep-indigo) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--deep-indigo) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--deep-indigo) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--deep-indigo) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+}
+
+/* ═══════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes brushStroke {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 0.3s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.15), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.animate-brush {
+  animation: brushStroke 0.8s ease-out forwards;
+}
+
+/* Stagger animation delays */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.3s; }
+.stagger-7 { animation-delay: 0.35s; }
+.stagger-8 { animation-delay: 0.4s; }
+.stagger-9 { animation-delay: 0.45s; }
+.stagger-10 { animation-delay: 0.5s; }
+
+/* ═══════════════════════════════════════════════
+   3D CARD FLIP
+   ═══════════════════════════════════════════════ */
+
+.perspective {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* ═══════════════════════════════════════════════
+   CUSTOM RANGE SLIDER
+   ═══════════════════════════════════════════════ */
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--bg-parchment);
+  border-radius: 3px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  background: var(--accent-crimson);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 2px 6px rgba(184, 48, 44, 0.3);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 3px 10px rgba(184, 48, 44, 0.4);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  background: var(--accent-crimson);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 6px rgba(184, 48, 44, 0.3);
+}
+
+/* ═══════════════════════════════════════════════
+   CUSTOM SCROLLBAR
+   ═══════════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-parchment);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink-faint);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ink-light);
+}
+
+/* ═══════════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════════ */
+
+/* Text colors */
+.text-ink-dark { color: var(--color-ink); }
+.text-ink-medium { color: var(--color-ink-medium); }
+.text-ink-light { color: var(--color-ink-light); }
+.text-ink-faint { color: var(--color-ink-faint); }
+.text-crimson { color: var(--accent-crimson); }
+.text-gold { color: var(--accent-gold); }
+.text-forest { color: var(--accent-forest); }
+.text-deep-indigo { color: var(--deep-indigo); }
+
+/* Legacy aliases for compatibility */
+.text-vermillion { color: var(--accent-crimson); }
+.text-indigo { color: var(--deep-indigo); }
+
+/* Background colors */
+.bg-paper { background-color: var(--bg-paper); }
+.bg-paper-light { background-color: #FAF7EF; }
+.bg-parchment { background-color: var(--bg-parchment); }
+.bg-deep-indigo { background-color: var(--deep-indigo); }
+.bg-crimson { background-color: var(--accent-crimson); }
+.bg-gold { background-color: var(--accent-gold); }
+.bg-forest { background-color: var(--accent-forest); }
+
+/* Legacy aliases */
+.bg-stone { background-color: var(--bg-parchment); }
+.bg-vermillion { background-color: var(--accent-crimson); }
+.bg-indigo { background-color: var(--deep-indigo); }
+
+/* Borders */
+.border-subtle { border-color: var(--bg-parchment); }
+.border-gold { border-color: var(--accent-gold); }
+.border-crimson { border-color: var(--accent-crimson); }
+.border-deep-indigo { border-color: var(--deep-indigo); }
+
+/* ═══════════════════════════════════════════════
+   BUTTON TRANSITIONS
+   ═══════════════════════════════════════════════ */
+
+.btn-transition {
+  transition: all 0.2s ease;
+}
+
+.btn-transition:hover {
+  transform: translateY(-1px);
+}
+
+.btn-transition:active {
+  transform: translateY(0);
+}
+
+/* Gold shimmer button effect */
+.btn-gold {
+  position: relative;
+  overflow: hidden;
+}
+.btn-gold::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}

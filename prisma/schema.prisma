@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id      String         @id @default("demo")
+  scans   Scan[]
+  mastery KanjiMastery[]
+}
+
+model Scan {
+  id            String      @id @default(cuid())
+  userId        String
+  imagePath     String
+  extractedText String?
+  createdAt     DateTime    @default(now())
+  user          User        @relation(fields: [userId], references: [id])
+  packs         StudyPack[]
+}
+
+model StudyPack {
+  id        String   @id @default(cuid())
+  scanId    String
+  packJson  Json
+  createdAt DateTime @default(now())
+  scan      Scan     @relation(fields: [scanId], references: [id])
+}
+
+model KanjiMastery {
+  userId       String
+  kanji        String
+  ease         Float    @default(2.5)
+  intervalDays Int      @default(0)
+  dueAt        DateTime @default(now())
+  correct      Int      @default(0)
+  wrong        Int      @default(0)
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@id([userId, kanji])
+}
