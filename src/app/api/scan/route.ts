@@ -6,6 +6,9 @@ import { join } from "path";
 import convert from "heic-convert";
 const DEMO_USER = "demo";
 
+// Vercel serverless: allow up to 60s for OCR + LLM calls
+export const maxDuration = 60;
+
 /**
  * Call n8n LLM webhook to correct likely OCR errors in Japanese text.
  * Returns corrected text, or the original if the call fails.

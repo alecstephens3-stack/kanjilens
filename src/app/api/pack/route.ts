@@ -4,6 +4,9 @@ import { lookupKanji } from "@/lib/dictionary";
 
 const DEMO_USER = "demo";
 
+// Vercel serverless: allow up to 60s for LLM calls per kanji
+export const maxDuration = 60;
+
 export async function POST(req: NextRequest) {
   try {
     const { scanId, kanjiList } = await req.json();
