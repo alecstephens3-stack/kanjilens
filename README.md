@@ -32,7 +32,7 @@ Learn kanji from photos. Upload an image of Japanese text, and KanjiLens extract
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/kanjilens.git
+git clone https://github.com/alecstephens3-stack/kanjilens.git
 cd kanjilens
 ```
 
